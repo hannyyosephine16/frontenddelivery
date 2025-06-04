@@ -1,3 +1,4 @@
+// lib/core/constants/app_constants.dart
 class AppConstants {
   static const String appName = 'DelPick';
   static const String appVersion = '1.0.0';
@@ -83,10 +84,11 @@ class AppConstants {
   static const int maxAddressLength = 200;
   static const int maxNotesLength = 500;
 
-  // Regular expressions
-  static const String emailRegex = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4};
-  static const String phoneRegex = r'^[0-9]{10,15};
-  static const String passwordRegex = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{6,};
+  // Regular expressions - Fixed string literals
+  static const String emailRegex = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+  static const String phoneRegex = r'^[0-9]{10,15}$';
+  static const String passwordRegex =
+      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{6,}$';
 
   // Animation durations
   static const int shortAnimationDuration = 200;
@@ -126,11 +128,14 @@ class AppConstants {
 
   // Error messages
   static const String errorGeneral = 'Something went wrong. Please try again.';
-  static const String errorNetwork = 'Network error. Please check your connection.';
+  static const String errorNetwork =
+      'Network error. Please check your connection.';
   static const String errorTimeout = 'Request timeout. Please try again.';
-  static const String errorUnauthorized = 'You are not authorized to perform this action.';
+  static const String errorUnauthorized =
+      'You are not authorized to perform this action.';
   static const String errorNotFound = 'Requested resource not found.';
-  static const String errorValidation = 'Please check your input and try again.';
+  static const String errorValidation =
+      'Please check your input and try again.';
   static const String errorServer = 'Server error. Please try again later.';
 
   // Success messages
@@ -142,9 +147,12 @@ class AppConstants {
   static const String successOrderCancelled = 'Order cancelled successfully';
 
   // Default values
-  static const String defaultAvatarUrl = 'assets/images/placeholders/placeholder_user.png';
-  static const String defaultStoreImageUrl = 'assets/images/placeholders/placeholder_store.png';
-  static const String defaultFoodImageUrl = 'assets/images/placeholders/placeholder_food.png';
+  static const String defaultAvatarUrl =
+      'assets/images/placeholders/placeholder_user.png';
+  static const String defaultStoreImageUrl =
+      'assets/images/placeholders/placeholder_store.png';
+  static const String defaultFoodImageUrl =
+      'assets/images/placeholders/placeholder_food.png';
 
   // Social media
   static const String websiteUrl = 'https://delpick.com';

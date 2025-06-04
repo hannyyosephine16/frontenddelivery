@@ -1,7 +1,5 @@
-import 'package:equatable/equatable.dart';
-
 // Base Failure Class
-class Failure extends Equatable {
+class Failure {
   final String message;
   final String? code;
   final dynamic data;

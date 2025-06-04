@@ -8,7 +8,7 @@ import 'package:frontend_delpick/core/constants/storage_constants.dart';
 class LocationService extends getx.GetxService {
   final StorageService _storageService = getx.Get.find<StorageService>();
 
-  final Rx<Position?> _currentPosition = Rx<Position?>(null);
+  final getx.Rx<Position?> _currentPosition = getx.Rx<Position?>(null);
   StreamSubscription<Position>? _positionStreamSubscription;
 
   Position? get currentPosition => _currentPosition.value;
@@ -36,7 +36,9 @@ class LocationService extends getx.GetxService {
         timestamp: DateTime.now(),
         accuracy: 0,
         altitude: 0,
+        altitudeAccuracy: 0,
         heading: 0,
+        headingAccuracy: 0,
         speed: 0,
         speedAccuracy: 0,
       );
@@ -159,8 +161,10 @@ class LocationService extends getx.GetxService {
     timestamp: DateTime.now(),
     accuracy: 0,
     altitude: 0,
+    altitudeAccuracy: 0,
     heading: 0,
     speed: 0,
+    headingAccuracy: 0,
     speedAccuracy: 0,
   );
 }

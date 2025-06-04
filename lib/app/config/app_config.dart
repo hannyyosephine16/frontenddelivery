@@ -151,6 +151,7 @@ class AppConfig {
     await Get.putAsync(
       () => PermissionService().onInit().then((_) => PermissionService()),
     );
+    await Future.delayed(Duration.zero);
   }
 }
 

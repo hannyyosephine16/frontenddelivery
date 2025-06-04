@@ -6,8 +6,9 @@ class ConnectivityService extends getx.GetxService {
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
-  final RxBool _isConnected = true.obs;
-  final Rx<ConnectivityResult> _connectionType = ConnectivityResult.none.obs;
+  final getx.RxBool _isConnected = true.obs;
+  final getx.Rx<ConnectivityResult> _connectionType =
+      ConnectivityResult.none.obs;
 
   bool get isConnected => _isConnected.value;
   ConnectivityResult get connectionType => _connectionType.value;
