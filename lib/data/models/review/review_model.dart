@@ -1,27 +1,30 @@
 import 'package:frontend_delpick/data/models/auth/user_model.dart';
 
-class CustomerModel {
+class ReviewModel {
   final int id;
   final int userId;
-  final String? address;
+  final int rating;
+  final String? comment;
   final UserModel? user;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  CustomerModel({
+  ReviewModel({
     required this.id,
     required this.userId,
-    this.address,
+    required this.rating,
+    this.comment,
     this.user,
     this.createdAt,
     this.updatedAt,
   });
 
-  factory CustomerModel.fromJson(Map<String, dynamic> json) {
-    return CustomerModel(
+  factory ReviewModel.fromJson(Map<String, dynamic> json) {
+    return ReviewModel(
       id: json['id'] as int,
       userId: json['userId'] as int,
-      address: json['address'] as String?,
+      rating: json['rating'] as int,
+      comment: json['comment'] as String?,
       user:
           json['user'] != null
               ? UserModel.fromJson(json['user'] as Map<String, dynamic>)
@@ -41,40 +44,26 @@ class CustomerModel {
     return {
       'id': id,
       'userId': userId,
-      'address': address,
+      'rating': rating,
+      'comment': comment,
       'user': user?.toJson(),
       'createdAt': createdAt?.toIso8601String(),
       'updatedAt': updatedAt?.toIso8601String(),
     };
   }
 
-  CustomerModel copyWith({
-    int? id,
-    int? userId,
-    String? address,
-    UserModel? user,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-  }) {
-    return CustomerModel(
-      id: id ?? this.id,
-      userId: userId ?? this.userId,
-      address: address ?? this.address,
-      user: user ?? this.user,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-    );
-  }
+  String get userName => user?.name ?? 'Anonymous';
+  String? get userAvatar => user?.avatar;
 
-  String get name => user?.name ?? '';
-  String get email => user?.email ?? '';
-  String get phone => user?.phone ?? '';
-  String? get avatar => user?.avatar;
+  String get formattedDate {
+    if (createdAt == null) return '';
+    return '${createdAt!.day}/${createdAt!.month}/${createdAt!.year}';
+  }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CustomerModel &&
+      other is ReviewModel &&
           runtimeType == other.runtimeType &&
           id == other.id;
 
@@ -83,6 +72,6 @@ class CustomerModel {
 
   @override
   String toString() {
-    return 'CustomerModel{id: $id, userId: $userId, name: $name}';
+    return 'ReviewModel{id: $id, rating: $rating, comment: $comment}';
   }
 }
