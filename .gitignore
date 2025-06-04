@@ -5,3 +5,15 @@
 # Avoid committing pubspec.lock for library packages; see
 # https://dart.dev/guides/libraries/private-files#pubspeclock.
 pubspec.lock
+/.idea/caches
+.flutter-plugins
+.flutter-plugins-dependencies
+.idea/frontend.iml
+.idea/libraries/Dart_SDK.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+analysis_options.yaml
+CHANGELOG.md
+example/frontend_delpick_example.dart
+frontend_delpick.iml
