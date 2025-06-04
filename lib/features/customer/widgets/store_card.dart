@@ -11,8 +11,7 @@ class StoreCard extends StatelessWidget {
   final StoreModel store;
   final VoidCallback onTap;
 
-  const StoreCard({Key? key, required this.store, required this.onTap})
-    : super(key: key);
+  const StoreCard({super.key, required this.store, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

@@ -12,8 +12,7 @@ class AppException implements Exception {
 
 // Network exceptions
 class NetworkException extends AppException {
-  const NetworkException(String message, {String? code})
-    : super(message, code: code);
+  const NetworkException(super.message, {super.code});
 }
 
 class ConnectionException extends NetworkException {
@@ -26,8 +25,7 @@ class TimeoutException extends NetworkException {
 
 // Authentication exceptions
 class AuthException extends AppException {
-  const AuthException(String message, {String? code})
-    : super(message, code: code);
+  const AuthException(super.message, {super.code});
 }
 
 class UnauthorizedException extends AuthException {
@@ -44,23 +42,21 @@ class ForbiddenException extends AuthException {
 
 // Data exceptions
 class DataException extends AppException {
-  const DataException(String message, {String? code})
-    : super(message, code: code);
+  const DataException(super.message, {super.code});
 }
 
 class ValidationException extends DataException {
   final Map<String, List<String>>? errors;
 
-  const ValidationException(String message, {this.errors, String? code})
-    : super(message, code: code);
+  const ValidationException(super.message, {this.errors, super.code});
 }
 
 class NotFoundException extends DataException {
-  const NotFoundException(String message) : super(message);
+  const NotFoundException(super.message);
 }
 
 class AlreadyExistsException extends DataException {
-  const AlreadyExistsException(String message) : super(message);
+  const AlreadyExistsException(super.message);
 }
 
 class DataParsingException extends DataException {
@@ -69,8 +65,7 @@ class DataParsingException extends DataException {
 
 // Location exceptions
 class LocationException extends AppException {
-  const LocationException(String message, {String? code})
-    : super(message, code: code);
+  const LocationException(super.message, {super.code});
 }
 
 class LocationPermissionDeniedException extends LocationException {
@@ -89,20 +84,20 @@ class LocationTimeoutException extends LocationException {
 
 // Storage exceptions
 class StorageException extends AppException {
-  const StorageException(String message) : super(message);
+  const StorageException(super.message);
 }
 
 class CacheException extends StorageException {
-  const CacheException(String message) : super(message);
+  const CacheException(super.message);
 }
 
 class DatabaseException extends StorageException {
-  const DatabaseException(String message) : super(message);
+  const DatabaseException(super.message);
 }
 
 // File exceptions
 class FileException extends AppException {
-  const FileException(String message) : super(message);
+  const FileException(super.message);
 }
 
 class FileNotFoundException extends FileException {
@@ -117,12 +112,12 @@ class FileSizeExceededException extends FileException {
 }
 
 class UnsupportedFileTypeException extends FileException {
-  const UnsupportedFileTypeException(String message) : super(message);
+  const UnsupportedFileTypeException(super.message);
 }
 
 // Permission exceptions
 class PermissionException extends AppException {
-  const PermissionException(String message) : super(message);
+  const PermissionException(super.message);
 }
 
 class CameraPermissionDeniedException extends PermissionException {
@@ -140,28 +135,24 @@ class NotificationPermissionDeniedException extends PermissionException {
 
 // Business logic exceptions
 class BusinessLogicException extends AppException {
-  const BusinessLogicException(String message, {String? code})
-    : super(message, code: code);
+  const BusinessLogicException(super.message, {super.code});
 }
 
 class OrderException extends BusinessLogicException {
-  const OrderException(String message, {String? code})
-    : super(message, code: code);
+  const OrderException(super.message, {super.code});
 }
 
 class PaymentException extends BusinessLogicException {
-  const PaymentException(String message, {String? code})
-    : super(message, code: code);
+  const PaymentException(super.message, {super.code});
 }
 
 class DeliveryException extends BusinessLogicException {
-  const DeliveryException(String message, {String? code})
-    : super(message, code: code);
+  const DeliveryException(super.message, {super.code});
 }
 
 // Cart exceptions
 class CartException extends BusinessLogicException {
-  const CartException(String message) : super(message);
+  const CartException(super.message);
 }
 
 class EmptyCartException extends CartException {

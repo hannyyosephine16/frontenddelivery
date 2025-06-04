@@ -1,5 +1,4 @@
 import 'package:frontend_delpick/data/models/tracking/location_model.dart';
-import 'package:frontend_delpick/data/models/driver/driver_model.dart';
 
 class TrackingInfoModel {
   final int orderId;

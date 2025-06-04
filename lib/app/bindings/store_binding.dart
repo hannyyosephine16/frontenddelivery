@@ -1,20 +1,4 @@
 import 'package:get/get.dart';
-import 'package:frontend_delpick/data/repositories/store_repository.dart';
-import 'package:frontend_delpick/data/repositories/menu_repository.dart';
-import 'package:frontend_delpick/data/repositories/order_repository.dart';
-import 'package:frontend_delpick/data/providers/store_provider.dart';
-import 'package:frontend_delpick/data/providers/menu_provider.dart';
-import 'package:frontend_delpick/data/providers/order_provider.dart';
-import 'package:frontend_delpick/data/datasources/remote/store_remote_datasource.dart';
-import 'package:frontend_delpick/data/datasources/remote/menu_remote_datasource.dart';
-import 'package:frontend_delpick/data/datasources/remote/order_remote_datasource.dart';
-import 'package:frontend_delpick/features/store/controllers/store_dashboard_controller.dart';
-import 'package:frontend_delpick/features/store/controllers/menu_management_controller.dart';
-import 'package:frontend_delpick/features/store/controllers/add_menu_item_controller.dart';
-import 'package:frontend_delpick/features/store/controllers/store_orders_controller.dart';
-import 'package:frontend_delpick/features/store/controllers/store_analytics_controller.dart';
-import 'package:frontend_delpick/features/store/controllers/store_settings_controller.dart';
-import 'package:frontend_delpick/features/store/controllers/store_profile_controller.dart';
 
 class StoreBinding extends Bindings {
   @override

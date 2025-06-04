@@ -15,7 +15,7 @@ import 'package:frontend_delpick/app/themes/app_colors.dart';
 class StoreListScreen extends StatelessWidget {
   final StoreController controller = Get.find<StoreController>();
 
-  StoreListScreen({Key? key}) : super(key: key);
+  StoreListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

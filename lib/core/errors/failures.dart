@@ -12,8 +12,7 @@ class Failure {
 
 // Network Failures
 class NetworkFailure extends Failure {
-  const NetworkFailure(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const NetworkFailure(super.message, {super.code, super.data});
 }
 
 class ConnectionFailure extends NetworkFailure {
@@ -37,8 +36,7 @@ class ServerFailure extends NetworkFailure {
 
 // Authentication Failures
 class AuthFailure extends Failure {
-  const AuthFailure(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const AuthFailure(super.message, {super.code, super.data});
 }
 
 class UnauthorizedFailure extends AuthFailure {
@@ -70,8 +68,8 @@ class AccountNotVerifiedFailure extends AuthFailure {
 class ValidationFailure extends Failure {
   final Map<String, List<String>>? errors;
 
-  const ValidationFailure(String message, {this.errors, String? code})
-    : super(message, code: code, data: errors);
+  const ValidationFailure(super.message, {this.errors, super.code})
+    : super(data: errors);
 
   @override
   List<Object?> get props => [message, errors, code];
@@ -98,8 +96,7 @@ class WeakPasswordFailure extends ValidationFailure {
 
 // Data Failures
 class DataFailure extends Failure {
-  const DataFailure(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const DataFailure(super.message, {super.code, super.data});
 }
 
 class NotFoundFailure extends DataFailure {
@@ -121,7 +118,7 @@ class EmptyDataFailure extends DataFailure {
 
 // Cache Failures
 class CacheFailure extends Failure {
-  const CacheFailure(String message) : super(message);
+  const CacheFailure(super.message);
 }
 
 class CacheNotFoundFailure extends CacheFailure {
@@ -134,8 +131,7 @@ class CacheExpiredFailure extends CacheFailure {
 
 // Location Failures
 class LocationFailure extends Failure {
-  const LocationFailure(String message, {String? code})
-    : super(message, code: code);
+  const LocationFailure(super.message, {super.code});
 }
 
 class LocationPermissionDeniedFailure extends LocationFailure {
@@ -155,7 +151,7 @@ class LocationTimeoutFailure extends LocationFailure {
 
 // Storage Failures
 class StorageFailure extends Failure {
-  const StorageFailure(String message) : super(message);
+  const StorageFailure(super.message);
 }
 
 class DatabaseFailure extends StorageFailure {
@@ -169,7 +165,7 @@ class StorageFullFailure extends StorageFailure {
 
 // File Failures
 class FileFailure extends Failure {
-  const FileFailure(String message) : super(message);
+  const FileFailure(super.message);
 }
 
 class FileNotFoundFailure extends FileFailure {
@@ -189,7 +185,7 @@ class UnsupportedFileTypeFailure extends FileFailure {
 
 // Permission Failures
 class PermissionFailure extends Failure {
-  const PermissionFailure(String message) : super(message);
+  const PermissionFailure(super.message);
 }
 
 class CameraPermissionDeniedFailure extends PermissionFailure {
@@ -209,13 +205,11 @@ class NotificationPermissionDeniedFailure extends PermissionFailure {
 
 // Business Logic Failures
 class BusinessLogicFailure extends Failure {
-  const BusinessLogicFailure(String message, {String? code})
-    : super(message, code: code);
+  const BusinessLogicFailure(super.message, {super.code});
 }
 
 class OrderFailure extends BusinessLogicFailure {
-  const OrderFailure(String message, {String? code})
-    : super(message, code: code);
+  const OrderFailure(super.message, {super.code});
 }
 
 class OrderNotFoundFailure extends OrderFailure {
@@ -228,8 +222,7 @@ class OrderCancellationFailure extends OrderFailure {
 }
 
 class PaymentFailure extends BusinessLogicFailure {
-  const PaymentFailure(String message, {String? code})
-    : super(message, code: code);
+  const PaymentFailure(super.message, {super.code});
 }
 
 class PaymentDeclinedFailure extends PaymentFailure {
@@ -244,7 +237,7 @@ class InsufficientFundsFailure extends PaymentFailure {
 
 // Cart Failures
 class CartFailure extends BusinessLogicFailure {
-  const CartFailure(String message) : super(message);
+  const CartFailure(super.message);
 }
 
 class EmptyCartFailure extends CartFailure {
@@ -268,8 +261,7 @@ class ItemOutOfStockFailure extends CartFailure {
 
 // Delivery Failures
 class DeliveryFailure extends BusinessLogicFailure {
-  const DeliveryFailure(String message, {String? code})
-    : super(message, code: code);
+  const DeliveryFailure(super.message, {super.code});
 }
 
 class DriverNotFoundFailure extends DeliveryFailure {
@@ -289,7 +281,7 @@ class DeliveryTimeExceededFailure extends DeliveryFailure {
 
 // Store Failures
 class StoreFailure extends BusinessLogicFailure {
-  const StoreFailure(String message) : super(message);
+  const StoreFailure(super.message);
 }
 
 class StoreClosedFailure extends StoreFailure {
@@ -308,7 +300,7 @@ class MenuItemNotAvailableFailure extends StoreFailure {
 
 // Driver Failures
 class DriverFailure extends BusinessLogicFailure {
-  const DriverFailure(String message) : super(message);
+  const DriverFailure(super.message);
 }
 
 class DriverNotActiveFailure extends DriverFailure {

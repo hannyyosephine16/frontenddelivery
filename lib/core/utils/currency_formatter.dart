@@ -23,11 +23,11 @@ class CurrencyFormatter {
   // Format currency compact
   static String formatCurrencyCompact(num amount) {
     if (amount >= 1000000000) {
-      return '${defaultSymbol} ${(amount / 1000000000).toStringAsFixed(1)}M';
+      return '$defaultSymbol ${(amount / 1000000000).toStringAsFixed(1)}M';
     } else if (amount >= 1000000) {
-      return '${defaultSymbol} ${(amount / 1000000).toStringAsFixed(1)}Jt';
+      return '$defaultSymbol ${(amount / 1000000).toStringAsFixed(1)}Jt';
     } else if (amount >= 1000) {
-      return '${defaultSymbol} ${(amount / 1000).toStringAsFixed(1)}K';
+      return '$defaultSymbol ${(amount / 1000).toStringAsFixed(1)}K';
     } else {
       return formatCurrency(amount);
     }

@@ -7,11 +7,6 @@ import 'package:frontend_delpick/core/services/external/location_service.dart';
 import 'package:frontend_delpick/core/services/external/notification_service.dart';
 import 'package:frontend_delpick/core/services/external/connectivity_service.dart';
 import 'package:frontend_delpick/core/services/external/permission_service.dart';
-import 'package:frontend_delpick/features/shared/controllers/navigation_controller.dart';
-import 'package:frontend_delpick/features/shared/controllers/theme_controller.dart';
-import 'package:frontend_delpick/features/shared/controllers/language_controller.dart';
-import 'package:frontend_delpick/features/shared/controllers/notification_controller.dart';
-import 'package:frontend_delpick/features/shared/controllers/connectivity_controller.dart';
 
 class InitialBinding extends Bindings {
   @override

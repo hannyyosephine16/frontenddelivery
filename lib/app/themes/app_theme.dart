@@ -17,8 +17,6 @@ class AppTheme {
         onSecondary: AppColors.textOnSecondary,
         surface: AppColors.surface,
         onSurface: AppColors.textPrimary,
-        background: AppColors.background,
-        onBackground: AppColors.textPrimary,
         error: AppColors.error,
         onError: AppColors.textOnPrimary,
       ),
@@ -232,14 +230,14 @@ class AppTheme {
 
       // Switch Theme
       switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
+        thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
             return AppColors.primary;
           }
           return AppColors.textSecondary;
         }),
-        trackColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
+        trackColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
             return AppColors.primaryLight;
           }
           return AppColors.border;
@@ -248,13 +246,13 @@ class AppTheme {
 
       // Checkbox Theme
       checkboxTheme: CheckboxThemeData(
-        fillColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
             return AppColors.primary;
           }
           return AppColors.surface;
         }),
-        checkColor: MaterialStateProperty.all(AppColors.textOnPrimary),
+        checkColor: WidgetStateProperty.all(AppColors.textOnPrimary),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppDimensions.radiusXS),
         ),
@@ -262,8 +260,8 @@ class AppTheme {
 
       // Radio Theme
       radioTheme: RadioThemeData(
-        fillColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
             return AppColors.primary;
           }
           return AppColors.textSecondary;
@@ -318,21 +316,19 @@ class AppTheme {
         onSecondary: AppColors.textOnSecondary,
         surface: AppColors.surfaceDark,
         onSurface: AppColors.textOnPrimary,
-        background: AppColors.backgroundDark,
-        onBackground: AppColors.textOnPrimary,
         error: AppColors.error,
         onError: AppColors.textOnPrimary,
       ),
       scaffoldBackgroundColor: AppColors.backgroundDark,
-      cardTheme: lightTheme.cardTheme?.copyWith(color: AppColors.surfaceDark),
-      appBarTheme: lightTheme.appBarTheme?.copyWith(
+      cardTheme: lightTheme.cardTheme.copyWith(color: AppColors.surfaceDark),
+      appBarTheme: lightTheme.appBarTheme.copyWith(
         backgroundColor: AppColors.surfaceDark,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
-      bottomNavigationBarTheme: lightTheme.bottomNavigationBarTheme?.copyWith(
+      bottomNavigationBarTheme: lightTheme.bottomNavigationBarTheme.copyWith(
         backgroundColor: AppColors.surfaceDark,
       ),
-      inputDecorationTheme: lightTheme.inputDecorationTheme?.copyWith(
+      inputDecorationTheme: lightTheme.inputDecorationTheme.copyWith(
         fillColor: AppColors.surfaceDark,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
@@ -347,14 +343,14 @@ class AppTheme {
           borderSide: const BorderSide(color: AppColors.borderDark),
         ),
       ),
-      dialogTheme: lightTheme.dialogTheme?.copyWith(
+      dialogTheme: lightTheme.dialogTheme.copyWith(
         backgroundColor: AppColors.surfaceDark,
       ),
-      listTileTheme: lightTheme.listTileTheme?.copyWith(
+      listTileTheme: lightTheme.listTileTheme.copyWith(
         tileColor: AppColors.surfaceDark,
         textColor: AppColors.textOnPrimary,
       ),
-      dividerTheme: lightTheme.dividerTheme?.copyWith(
+      dividerTheme: lightTheme.dividerTheme.copyWith(
         color: AppColors.borderDark,
       ),
     );

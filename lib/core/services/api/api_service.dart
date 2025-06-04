@@ -206,7 +206,7 @@ class ApiService extends getx.GetxService {
 
       for (int i = 0; i < files.length; i++) {
         String fileName = files[i].path.split('/').last;
-        formDataMap['${fieldName}[$i]'] = await MultipartFile.fromFile(
+        formDataMap['$fieldName[$i]'] = await MultipartFile.fromFile(
           files[i].path,
           filename: fileName,
         );

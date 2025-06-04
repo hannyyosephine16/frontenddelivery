@@ -1,7 +1,6 @@
 // lib/app/config/app_config.dart
 import 'package:frontend_delpick/core/constants/app_constants.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../core/services/api/api_service.dart';
 import '../../core/services/external/connectivity_service.dart';

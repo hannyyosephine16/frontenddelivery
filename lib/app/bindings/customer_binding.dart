@@ -99,17 +99,8 @@
 
 // lib/app/bindings/customer_binding.dart
 import 'package:get/get.dart';
-import 'package:frontend_delpick/features/customer/controllers/home_controller.dart';
-import 'package:frontend_delpick/features/customer/controllers/cart_controller.dart';
-import 'package:frontend_delpick/features/customer/controllers/order_controller.dart';
 import 'package:frontend_delpick/features/customer/controllers/store_controller.dart';
-import 'package:frontend_delpick/data/repositories/store_repository.dart';
-import 'package:frontend_delpick/data/repositories/menu_repository.dart';
-import 'package:frontend_delpick/data/repositories/order_repository.dart';
 import 'package:frontend_delpick/data/repositories/tracking_repository.dart'; // Add this
-import 'package:frontend_delpick/data/providers/store_provider.dart';
-import 'package:frontend_delpick/data/providers/menu_provider.dart';
-import 'package:frontend_delpick/data/providers/order_provider.dart';
 import 'package:frontend_delpick/data/providers/tracking_provider.dart'; // Add this
 
 class CustomerBinding extends Bindings {

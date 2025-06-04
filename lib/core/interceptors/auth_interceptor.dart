@@ -77,7 +77,7 @@ class AuthInterceptor extends Interceptor {
       _clearAuthData();
 
       // Check if we're not already on the login screen
-      final String? currentRoute = getx.Get.currentRoute;
+      final String currentRoute = getx.Get.currentRoute;
       if (currentRoute != Routes.LOGIN &&
           currentRoute != Routes.REGISTER &&
           currentRoute != Routes.SPLASH &&
