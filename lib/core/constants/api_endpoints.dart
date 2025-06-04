@@ -18,12 +18,33 @@ class ApiEndpoints {
   static const String forgotPassword = '$auth/forgot-password';
   static const String resetPassword = '$auth/reset-password';
 
-  // Customer endpoints
-  static const String getAllCustomers = customers;
-  static String getCustomerById(int id) => '$customers/$id';
-  static const String createCustomer = customers;
-  static String updateCustomer(int id) => '$customers/$id';
-  static String deleteCustomer(int id) => '$customers/$id';
+  // Store endpoints
+  static const String getAllStores = stores;
+  static String getStoreById(int id) => '$stores/$id';
+  static const String createStore = stores;
+  static String updateStore(int id) => '$stores/$id';
+  static String deleteStore(int id) => '$stores/$id';
+  static const String updateStoreProfile = '$stores/update';
+  static String updateStoreStatus(int id) => '$stores/$id/status';
+
+  // Menu item endpoints
+  static const String getAllMenuItems = menuItems;
+  static String getMenuItemsByStoreId(int storeId) =>
+      '$menuItems/store/$storeId';
+  static String getMenuItemById(int id) => '$menuItems/$id';
+  static const String createMenuItem = menuItems;
+  static String updateMenuItem(int id) => '$menuItems/$id';
+  static String deleteMenuItem(int id) => '$menuItems/$id';
+
+  // Order endpoints
+  static const String createOrder = orders;
+  static const String userOrders = '$orders/user';
+  static const String storeOrders = '$orders/store';
+  static String getOrderById(int id) => '$orders/$id';
+  static String processOrder(int id) => '$orders/$id/process';
+  static String cancelOrder(int id) => '$orders/$id/cancel';
+  static const String createReview = '$orders/review';
+  static const String updateOrderStatus = '$orders/status';
 
   // Driver endpoints
   static const String getAllDrivers = drivers;
@@ -36,35 +57,7 @@ class ApiEndpoints {
       '$drivers/$driverId/location';
   static const String updateDriverStatus = '$drivers/status';
   static const String updateDriverProfile = '$drivers/update';
-  static const String getDriverOrders = '$drivers/orders';
-
-  // Store endpoints
-  static const String getAllStores = stores;
-  static String getStoreById(int id) => '$stores/$id';
-  static const String createStore = stores;
-  static String updateStore(int id) => '$stores/$id';
-  static String deleteStore(int id) => '$stores/$id';
-  static const String updateStoreProfile = '$stores/update';
-  static String updateStoreStatus(int id) => '$stores/$id/status';
-
-  // Menu item endpoints
-  static const String getAllMenuItems = menuItems;
-  static String getMenuItemById(int id) => '$menuItems/$id';
-  static String getMenuItemsByStoreId(int storeId) =>
-      '$menuItems/store/$storeId';
-  static const String createMenuItem = menuItems;
-  static String updateMenuItem(int id) => '$menuItems/$id';
-  static String deleteMenuItem(int id) => '$menuItems/$id';
-
-  // Order endpoints
-  static const String createOrder = orders;
-  static const String getUserOrders = '$orders/user';
-  static const String getStoreOrders = '$orders/store';
-  static String getOrderById(int id) => '$orders/$id';
-  static String processOrder(int id) => '$orders/$id/process';
-  static String cancelOrder(int id) => '$orders/$id/cancel';
-  static const String createReview = '$orders/review';
-  static const String updateOrderStatus = '$orders/status';
+  static const String driverOrders = '$drivers/orders';
 
   // Driver request endpoints
   static const String getDriverRequests = driverRequests;
@@ -76,97 +69,6 @@ class ApiEndpoints {
   static String startDelivery(int orderId) => '$tracking/$orderId/start';
   static String completeDelivery(int orderId) => '$tracking/$orderId/complete';
 
-  // File upload endpoints
-  static const String uploadImage = '/upload/image';
-  static const String uploadDocument = '/upload/document';
-
-  // Utility endpoints
-  static const String healthCheck = '/health';
-  static const String version = '/version';
-
-  // Query parameters helpers
-  static Map<String, dynamic> getPaginationParams({
-    int page = 1,
-    int limit = 10,
-  }) {
-    return {'page': page.toString(), 'limit': limit.toString()};
-  }
-
-  static Map<String, dynamic> getSearchParams({
-    String? search,
-    String? sortBy,
-    String? sortOrder,
-  }) {
-    final params = <String, dynamic>{};
-    if (search != null && search.isNotEmpty) {
-      params['search'] = search;
-    }
-    if (sortBy != null && sortBy.isNotEmpty) {
-      params['sortBy'] = sortBy;
-    }
-    if (sortOrder != null && sortOrder.isNotEmpty) {
-      params['sortOrder'] = sortOrder;
-    }
-    return params;
-  }
-
-  static Map<String, dynamic> getFilterParams({
-    String? status,
-    int? storeId,
-    int? customerId,
-    int? driverId,
-    String? category,
-    double? minPrice,
-    double? maxPrice,
-    double? minRating,
-    bool? isAvailable,
-  }) {
-    final params = <String, dynamic>{};
-    if (status != null && status.isNotEmpty) {
-      params['status'] = status;
-    }
-    if (storeId != null) {
-      params['storeId'] = storeId.toString();
-    }
-    if (customerId != null) {
-      params['customerId'] = customerId.toString();
-    }
-    if (driverId != null) {
-      params['driverId'] = driverId.toString();
-    }
-    if (category != null && category.isNotEmpty) {
-      params['category'] = category;
-    }
-    if (minPrice != null) {
-      params['minPrice'] = minPrice.toString();
-    }
-    if (maxPrice != null) {
-      params['maxPrice'] = maxPrice.toString();
-    }
-    if (minRating != null) {
-      params['minRating'] = minRating.toString();
-    }
-    if (isAvailable != null) {
-      params['isAvailable'] = isAvailable.toString();
-    }
-    return params;
-  }
-
-  static Map<String, dynamic> getLocationParams({
-    double? latitude,
-    double? longitude,
-    double? radius,
-  }) {
-    final params = <String, dynamic>{};
-    if (latitude != null) {
-      params['latitude'] = latitude.toString();
-    }
-    if (longitude != null) {
-      params['longitude'] = longitude.toString();
-    }
-    if (radius != null) {
-      params['radius'] = radius.toString();
-    }
-    return params;
-  }
+  // Review endpoints
+  static const String reviews = '/reviews';
 }
