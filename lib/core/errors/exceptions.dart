@@ -1,220 +1,178 @@
-// Base Exception Class
-abstract class AppException implements Exception {
+// lib/core/utils/exceptions.dart
+
+class AppException implements Exception {
   final String message;
   final String? code;
-  final dynamic data;
 
-  AppException(this.message, {this.code, this.data});
+  const AppException(this.message, {this.code});
 
   @override
-  String toString() => 'AppException: $message';
+  String toString() => 'AppException: $message (Code: $code)';
 }
 
-// Network Exceptions
+// Network exceptions
 class NetworkException extends AppException {
-  NetworkException(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const NetworkException(String message, {String? code})
+    : super(message, code: code);
 }
 
 class ConnectionException extends NetworkException {
-  ConnectionException([String? message])
-    : super(
-        message ?? 'Connection failed. Please check your internet connection.',
-      );
+  const ConnectionException() : super('No internet connection');
 }
 
 class TimeoutException extends NetworkException {
-  TimeoutException([String? message])
-    : super(message ?? 'Request timeout. Please try again.');
+  const TimeoutException() : super('Request timed out');
 }
 
-class ServerException extends NetworkException {
-  final int statusCode;
-
-  ServerException(this.statusCode, String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
-}
-
-// Authentication Exceptions
+// Authentication exceptions
 class AuthException extends AppException {
-  AuthException(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const AuthException(String message, {String? code})
+    : super(message, code: code);
 }
 
 class UnauthorizedException extends AuthException {
-  UnauthorizedException([String? message])
-    : super(message ?? 'Unauthorized access. Please login again.');
-}
-
-class ForbiddenException extends AuthException {
-  ForbiddenException([String? message])
-    : super(
-        message ??
-            'Access denied. You don\'t have permission to perform this action.',
-      );
+  const UnauthorizedException() : super('Unauthorized access');
 }
 
 class TokenExpiredException extends AuthException {
-  TokenExpiredException([String? message])
-    : super(message ?? 'Session expired. Please login again.');
+  const TokenExpiredException() : super('Session expired');
 }
 
-// Validation Exceptions
-class ValidationException extends AppException {
+class ForbiddenException extends AuthException {
+  const ForbiddenException() : super('Access denied');
+}
+
+// Data exceptions
+class DataException extends AppException {
+  const DataException(String message, {String? code})
+    : super(message, code: code);
+}
+
+class ValidationException extends DataException {
   final Map<String, List<String>>? errors;
 
-  ValidationException(String message, {this.errors, String? code})
-    : super(message, code: code, data: errors);
-}
-
-class RequiredFieldException extends ValidationException {
-  RequiredFieldException(String fieldName) : super('$fieldName is required');
-}
-
-class InvalidFormatException extends ValidationException {
-  InvalidFormatException(String fieldName, String expectedFormat)
-    : super('Invalid format for $fieldName. Expected: $expectedFormat');
-}
-
-// Data Exceptions
-class DataException extends AppException {
-  DataException(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const ValidationException(String message, {this.errors, String? code})
+    : super(message, code: code);
 }
 
 class NotFoundException extends DataException {
-  NotFoundException(String resource) : super('$resource not found');
+  const NotFoundException(String message) : super(message);
 }
 
 class AlreadyExistsException extends DataException {
-  AlreadyExistsException(String resource) : super('$resource already exists');
+  const AlreadyExistsException(String message) : super(message);
 }
 
 class DataParsingException extends DataException {
-  DataParsingException([String? message])
-    : super(message ?? 'Failed to parse data');
+  const DataParsingException() : super('Failed to parse data');
 }
 
-// Location Exceptions
+// Location exceptions
 class LocationException extends AppException {
-  LocationException(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const LocationException(String message, {String? code})
+    : super(message, code: code);
 }
 
 class LocationPermissionDeniedException extends LocationException {
-  LocationPermissionDeniedException()
-    : super('Location permission denied. Please enable location access.');
+  const LocationPermissionDeniedException()
+    : super('Location permission denied');
 }
 
 class LocationServiceDisabledException extends LocationException {
-  LocationServiceDisabledException()
-    : super('Location service is disabled. Please enable GPS.');
+  const LocationServiceDisabledException()
+    : super('Location service is disabled');
 }
 
 class LocationTimeoutException extends LocationException {
-  LocationTimeoutException()
-    : super('Failed to get location. Please try again.');
+  const LocationTimeoutException() : super('Location request timed out');
 }
 
-// Storage Exceptions
+// Storage exceptions
 class StorageException extends AppException {
-  StorageException(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const StorageException(String message) : super(message);
 }
 
 class CacheException extends StorageException {
-  CacheException([String? message])
-    : super(message ?? 'Cache operation failed');
+  const CacheException(String message) : super(message);
 }
 
 class DatabaseException extends StorageException {
-  DatabaseException([String? message])
-    : super(message ?? 'Database operation failed');
+  const DatabaseException(String message) : super(message);
 }
 
-// File Exceptions
+// File exceptions
 class FileException extends AppException {
-  FileException(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const FileException(String message) : super(message);
 }
 
 class FileNotFoundException extends FileException {
-  FileNotFoundException(String fileName) : super('File not found: $fileName');
+  const FileNotFoundException(String path) : super('File not found: $path');
 }
 
 class FileSizeExceededException extends FileException {
-  FileSizeExceededException(int maxSize)
-    : super('File size exceeds maximum limit of ${maxSize}MB');
+  final int maxSizeMB;
+
+  const FileSizeExceededException(this.maxSizeMB)
+    : super('File size exceeds the maximum limit of $maxSizeMB MB');
 }
 
 class UnsupportedFileTypeException extends FileException {
-  UnsupportedFileTypeException(String fileType)
-    : super('Unsupported file type: $fileType');
+  const UnsupportedFileTypeException(String message) : super(message);
 }
 
-// Permission Exceptions
+// Permission exceptions
 class PermissionException extends AppException {
-  PermissionException(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const PermissionException(String message) : super(message);
 }
 
 class CameraPermissionDeniedException extends PermissionException {
-  CameraPermissionDeniedException()
-    : super('Camera permission denied. Please enable camera access.');
+  const CameraPermissionDeniedException() : super('Camera permission denied');
 }
 
 class StoragePermissionDeniedException extends PermissionException {
-  StoragePermissionDeniedException()
-    : super('Storage permission denied. Please enable storage access.');
+  const StoragePermissionDeniedException() : super('Storage permission denied');
 }
 
 class NotificationPermissionDeniedException extends PermissionException {
-  NotificationPermissionDeniedException()
-    : super('Notification permission denied. Please enable notifications.');
+  const NotificationPermissionDeniedException()
+    : super('Notification permission denied');
 }
 
-// Business Logic Exceptions
+// Business logic exceptions
 class BusinessLogicException extends AppException {
-  BusinessLogicException(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const BusinessLogicException(String message, {String? code})
+    : super(message, code: code);
 }
 
 class OrderException extends BusinessLogicException {
-  OrderException(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const OrderException(String message, {String? code})
+    : super(message, code: code);
 }
 
 class PaymentException extends BusinessLogicException {
-  PaymentException(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const PaymentException(String message, {String? code})
+    : super(message, code: code);
 }
 
 class DeliveryException extends BusinessLogicException {
-  DeliveryException(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const DeliveryException(String message, {String? code})
+    : super(message, code: code);
 }
 
-// Cart Exceptions
+// Cart exceptions
 class CartException extends BusinessLogicException {
-  CartException(String message, {String? code, dynamic data})
-    : super(message, code: code, data: data);
+  const CartException(String message) : super(message);
 }
 
 class EmptyCartException extends CartException {
-  EmptyCartException() : super('Cart is empty. Please add items to proceed.');
+  const EmptyCartException() : super('Your cart is empty');
 }
 
 class CartItemNotFoundException extends CartException {
-  CartItemNotFoundException() : super('Item not found in cart.');
+  const CartItemNotFoundException() : super('Item not found in cart');
 }
 
 class StoreConflictException extends CartException {
-  StoreConflictException()
-    : super('Cannot add items from different stores. Please clear cart first.');
-}
-
-// Unknown Exception
-class UnknownException extends AppException {
-  UnknownException([String? message])
-    : super(message ?? 'An unknown error occurred. Please try again.');
+  const StoreConflictException()
+    : super('Cannot add items from different stores to cart');
 }

@@ -1,3 +1,5 @@
+// lib/core/interceptors/auth_interceptor.dart
+
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as getx;
 import 'package:frontend_delpick/core/services/local/storage_service.dart';
@@ -20,7 +22,7 @@ class AuthInterceptor extends Interceptor {
       options.headers['Authorization'] = 'Bearer $token';
     }
 
-    // Add user agent and other common headers
+    // Add common headers
     options.headers['User-Agent'] = 'DelPick Mobile App';
     options.headers['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -33,9 +35,13 @@ class AuthInterceptor extends Interceptor {
     if (response.statusCode == 200 || response.statusCode == 201) {
       // Check if response contains a new token
       final dynamic data = response.data;
-      if (data is Map<String, dynamic> && data.containsKey('token')) {
-        final String newToken = data['token'];
-        _storageService.writeString(StorageConstants.authToken, newToken);
+      if (data is Map<String, dynamic> && data.containsKey('data')) {
+        final dynamic responseData = data['data'];
+        if (responseData is Map<String, dynamic> &&
+            responseData.containsKey('token')) {
+          final String newToken = responseData['token'];
+          _storageService.writeString(StorageConstants.authToken, newToken);
+        }
       }
     }
 
@@ -55,25 +61,38 @@ class AuthInterceptor extends Interceptor {
   }
 
   void _handleUnauthorized(DioException err) {
-    // Clear stored authentication data
-    _clearAuthData();
+    // Check if it's a token expiration error
+    final data = err.response?.data;
+    bool isTokenExpired = false;
 
-    // Check if we're not already on the login screen
-    final String? currentRoute = getx.Get.currentRoute;
-    if (currentRoute != Routes.LOGIN &&
-        currentRoute != Routes.REGISTER &&
-        currentRoute != Routes.SPLASH &&
-        currentRoute != Routes.ONBOARDING) {
-      // Navigate to login screen
-      getx.Get.offAllNamed(Routes.LOGIN);
+    if (data is Map<String, dynamic> && data.containsKey('message')) {
+      final message = data['message'].toString().toLowerCase();
+      isTokenExpired =
+          message.contains('token') &&
+          (message.contains('expired') || message.contains('invalid'));
+    }
 
-      // Show message
-      getx.Get.snackbar(
-        'Session Expired',
-        'Please login again to continue',
-        snackPosition: getx.SnackPosition.TOP,
-        duration: const Duration(seconds: 3),
-      );
+    if (isTokenExpired) {
+      // Clear stored authentication data
+      _clearAuthData();
+
+      // Check if we're not already on the login screen
+      final String? currentRoute = getx.Get.currentRoute;
+      if (currentRoute != Routes.LOGIN &&
+          currentRoute != Routes.REGISTER &&
+          currentRoute != Routes.SPLASH &&
+          currentRoute != Routes.ONBOARDING) {
+        // Navigate to login screen
+        getx.Get.offAllNamed(Routes.LOGIN);
+
+        // Show message
+        getx.Get.snackbar(
+          'Session Expired',
+          'Please login again to continue',
+          snackPosition: getx.SnackPosition.TOP,
+          duration: const Duration(seconds: 3),
+        );
+      }
     }
   }
 
