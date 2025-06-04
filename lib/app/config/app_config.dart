@@ -1,5 +1,14 @@
 // lib/app/config/app_config.dart
 import 'package:frontend_delpick/core/constants/app_constants.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../../core/services/api/api_service.dart';
+import '../../core/services/external/connectivity_service.dart';
+import '../../core/services/external/location_service.dart';
+import '../../core/services/external/notification_service.dart';
+import '../../core/services/external/permission_service.dart';
+import '../../core/services/local/storage_service.dart';
 
 class AppConfig {
   // App Information
@@ -123,6 +132,26 @@ class AppConfig {
 
   static bool get isReleaseMode => !isDebugMode;
   static bool get enableLogging => isDebugMode;
+
+  static Future<void> initialize() async {
+    // Initialize core services
+    await Get.putAsync(
+      () => StorageService().onInit().then((_) => StorageService()),
+    );
+    await Get.putAsync(() => ApiService().onInit().then((_) => ApiService()));
+    await Get.putAsync(
+      () => ConnectivityService().onInit().then((_) => ConnectivityService()),
+    );
+    await Get.putAsync(
+      () => LocationService().onInit().then((_) => LocationService()),
+    );
+    await Get.putAsync(
+      () => NotificationService().onInit().then((_) => NotificationService()),
+    );
+    await Get.putAsync(
+      () => PermissionService().onInit().then((_) => PermissionService()),
+    );
+  }
 }
 
 // class AppConfig {

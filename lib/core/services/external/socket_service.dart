@@ -1,4 +1,4 @@
-// lib/core/services/external/socket_service.dart
+// lib/core/services/external/socket_service.dart - Fixed imports
 import 'dart:async';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:get/get.dart' as getx;
@@ -10,7 +10,7 @@ class SocketService extends getx.GetxService {
   IO.Socket? _socket;
   final StorageService _storageService = getx.Get.find<StorageService>();
 
-  final RxBool _isConnected = false.obs;
+  final getx.RxBool _isConnected = false.obs; // Fixed: Use getx.RxBool
   bool get isConnected => _isConnected.value;
 
   // Stream controllers for different event types

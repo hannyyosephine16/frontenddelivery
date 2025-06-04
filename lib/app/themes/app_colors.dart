@@ -54,6 +54,7 @@ class AppColors {
   static const Color storeBusy = Color(0xFFFF9800);
 
   // Rating colors
+  static const Color rating = Color(0xFFFFD700);
   static const Color ratingStar = Color(0xFFFFC107);
   static const Color ratingEmpty = Color(0xFFE0E0E0);
 

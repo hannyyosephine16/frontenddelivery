@@ -1,4 +1,5 @@
-import 'dart:math';
+// lib/data/models/tracking/location_model.dart - Fixed math imports
+import 'dart:math' as math; // Added proper math import
 
 class LocationModel {
   final double latitude;
@@ -52,19 +53,19 @@ class LocationModel {
   double distanceTo(LocationModel other) {
     const double earthRadius = 6371;
 
-    final double lat1Rad = latitude * (3.14159 / 180);
-    final double lat2Rad = other.latitude * (3.14159 / 180);
-    final double deltaLatRad = (other.latitude - latitude) * (3.14159 / 180);
-    final double deltaLonRad = (other.longitude - longitude) * (3.14159 / 180);
+    final double lat1Rad = latitude * (math.pi / 180);
+    final double lat2Rad = other.latitude * (math.pi / 180);
+    final double deltaLatRad = (other.latitude - latitude) * (math.pi / 180);
+    final double deltaLonRad = (other.longitude - longitude) * (math.pi / 180);
 
     final double a =
-        (deltaLatRad / 2).sin() * (deltaLatRad / 2).sin() +
-        lat1Rad.cos() *
-            lat2Rad.cos() *
-            (deltaLonRad / 2).sin() *
-            (deltaLonRad / 2).sin();
+        math.sin(deltaLatRad / 2) * math.sin(deltaLatRad / 2) +
+        math.cos(lat1Rad) *
+            math.cos(lat2Rad) *
+            math.sin(deltaLonRad / 2) *
+            math.sin(deltaLonRad / 2);
 
-    final double c = 2 * (a.sqrt()).atan2((1 - a).sqrt());
+    final double c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a));
 
     return earthRadius * c;
   }

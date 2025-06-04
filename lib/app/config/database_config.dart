@@ -1,10 +1,10 @@
+// lib/app/config/database_config.dart
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DatabaseConfig {
-  static Database? _database;
-  static const String _databaseName = 'delpick_local.db';
-  static const int _databaseVersion = 1;
+  static const String _dbName = 'delpick.db';
+  static const int _dbVersion = 1;
 
   // Table names
   static const String userTable = 'users';
@@ -14,39 +14,36 @@ class DatabaseConfig {
   static const String addressesTable = 'addresses';
   static const String notificationsTable = 'notifications';
 
+  static Database? _database;
+
   static Future<Database> get database async {
-    if (_database != null) return _database!;
-    _database = await _initDatabase();
+    _database ??= await _initDatabase();
     return _database!;
   }
 
   static Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), _databaseName);
-
+    String path = join(await getDatabasesPath(), _dbName);
     return await openDatabase(
       path,
-      version: _databaseVersion,
-      onCreate: _onCreate,
-      onUpgrade: _onUpgrade,
+      version: _dbVersion,
+      onCreate: _createTables,
     );
   }
 
-  static Future<void> _onCreate(Database db, int version) async {
-    // Create users table for caching user data
+  static Future<void> _createTables(Database db, int version) async {
+    // Users table
     await db.execute('''
       CREATE TABLE $userTable (
         id INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
         email TEXT NOT NULL,
-        phone TEXT,
         role TEXT NOT NULL,
         avatar TEXT,
-        created_at TEXT,
-        updated_at TEXT
+        created_at TEXT
       )
     ''');
 
-    // Create cart items table
+    // Cart items table
     await db.execute('''
       CREATE TABLE $cartTable (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,39 +54,33 @@ class DatabaseConfig {
         quantity INTEGER NOT NULL,
         image_url TEXT,
         notes TEXT,
-        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        created_at TEXT
       )
     ''');
 
-    // Create favorites table
+    // Favorites table
     await db.execute('''
       CREATE TABLE $favoritesTable (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        store_id INTEGER NOT NULL,
+        store_id INTEGER,
         menu_item_id INTEGER,
-        type TEXT NOT NULL, -- 'store' or 'menu_item'
-        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        type TEXT NOT NULL,
+        created_at TEXT
       )
     ''');
 
-    // Create offline orders table
+    // Orders table (for offline support)
     await db.execute('''
       CREATE TABLE $ordersTable (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         server_id INTEGER,
-        store_id INTEGER NOT NULL,
-        customer_id INTEGER NOT NULL,
-        items TEXT NOT NULL, -- JSON string
-        total REAL NOT NULL,
-        status TEXT NOT NULL,
-        notes TEXT,
-        delivery_address TEXT NOT NULL,
-        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-        synced INTEGER DEFAULT 0
+        data TEXT NOT NULL,
+        synced INTEGER DEFAULT 0,
+        created_at TEXT
       )
     ''');
 
-    // Create addresses table
+    // Addresses table
     await db.execute('''
       CREATE TABLE $addressesTable (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -98,48 +89,26 @@ class DatabaseConfig {
         latitude REAL,
         longitude REAL,
         is_default INTEGER DEFAULT 0,
-        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        created_at TEXT
       )
     ''');
 
-    // Create notifications table
+    // Notifications table
     await db.execute('''
       CREATE TABLE $notificationsTable (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
         body TEXT NOT NULL,
-        type TEXT NOT NULL,
-        data TEXT, -- JSON string
+        payload TEXT,
         is_read INTEGER DEFAULT 0,
-        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        created_at TEXT
       )
     ''');
   }
 
-  static Future<void> _onUpgrade(
-    Database db,
-    int oldVersion,
-    int newVersion,
-  ) async {
-    // Handle database upgrades
-    if (oldVersion < newVersion) {
-      // Add migration logic here
-    }
-  }
-
   static Future<void> clearDatabase() async {
-    final db = await database;
-    await db.delete(cartTable);
-    await db.delete(favoritesTable);
-    await db.delete(ordersTable);
-    await db.delete(addressesTable);
-    await db.delete(notificationsTable);
-  }
-
-  static Future<void> closeDatabase() async {
-    if (_database != null) {
-      await _database!.close();
-      _database = null;
-    }
+    String path = join(await getDatabasesPath(), _dbName);
+    await deleteDatabase(path);
+    _database = null;
   }
 }

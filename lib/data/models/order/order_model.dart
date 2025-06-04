@@ -1,3 +1,4 @@
+// lib/data/models/order/order_model.dart - Fixed null safety
 import 'package:frontend_delpick/data/models/auth/user_model.dart';
 import 'package:frontend_delpick/data/models/store/store_model.dart';
 import 'order_item_model.dart';
@@ -18,7 +19,7 @@ class OrderModel {
   final int storeId;
   final DateTime? estimatedDeliveryTime;
   final List<OrderItemModel>? items;
-  final StoreModel store;
+  final StoreModel? store; // Made nullable to fix the error
   final UserModel? customer;
   final UserModel? driver;
   final DateTime? createdAt;
@@ -40,7 +41,7 @@ class OrderModel {
     required this.storeId,
     this.estimatedDeliveryTime,
     this.items,
-    required this.store,
+    this.store, // Made nullable
     this.customer,
     this.driver,
     this.createdAt,
@@ -220,7 +221,11 @@ class OrderModel {
     }
   }
 
-  int get totalItems => items?.fold(0, (sum, item) => sum + item.quantity) ?? 0;
+  int get totalItems =>
+      items?.fold(0, (sum, item) => sum! + item.quantity) ?? 0;
+
+  // Fixed: Added null check for store
+  String get storeName => store?.name ?? 'Unknown Store';
 
   @override
   bool operator ==(Object other) =>
