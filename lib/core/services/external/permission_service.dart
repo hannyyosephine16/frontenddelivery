@@ -191,8 +191,8 @@ class PermissionService extends getx.GetxService {
         return 'Permission denied';
       case PermissionStatus.restricted:
         return 'Permission restricted';
-      case PermissionStatus.limitedPermission:
-        return 'Limited permission granted';
+      // case PermissionStatus.limitedPermission:
+      //   return 'Limited permission granted';
       case PermissionStatus.permanentlyDenied:
         return 'Permission permanently denied. Please enable in settings.';
       default:
