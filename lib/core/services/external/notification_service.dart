@@ -72,18 +72,20 @@ class NotificationService extends getx.GetxService {
   Future<bool> requestPermission() async {
     if (Platform.isAndroid) {
       final androidPlugin =
-          _localNotifications
-              .resolvePlatformSpecificImplementation<
-                AndroidFlutterLocalNotificationsPlugin
-              >();
-      final granted = await androidPlugin?.requestPermission();
-      return granted ?? false;
+          _localNotifications.resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>();
+
+      // For Android 13+, request notification permission
+      if (androidPlugin != null) {
+        final bool? granted =
+            await androidPlugin.requestNotificationsPermission();
+        return granted ?? false;
+      }
+      return true; // Assume granted for older Android versions
     } else if (Platform.isIOS) {
       final iosPlugin =
-          _localNotifications
-              .resolvePlatformSpecificImplementation<
-                IOSFlutterLocalNotificationsPlugin
-              >();
+          _localNotifications.resolvePlatformSpecificImplementation<
+              IOSFlutterLocalNotificationsPlugin>();
       final granted = await iosPlugin?.requestPermissions(
         alert: true,
         badge: true,
@@ -118,7 +120,7 @@ class NotificationService extends getx.GetxService {
       presentSound: true,
     );
 
-    const notificationDetails = NotificationDetails(
+    final notificationDetails = NotificationDetails(
       android: androidDetails,
       iOS: iosDetails,
     );

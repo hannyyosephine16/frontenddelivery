@@ -1,5 +1,3 @@
-// lib/features/customer/widgets/store_card.dart
-
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:frontend_delpick/data/models/store/store_model.dart';
@@ -33,25 +31,22 @@ class StoreCard extends StatelessWidget {
               child: SizedBox(
                 height: 150,
                 width: double.infinity,
-                child:
-                    store.imageUrl != null
-                        ? CachedNetworkImage(
-                          imageUrl: store.imageUrl!,
-                          fit: BoxFit.cover,
-                          placeholder:
-                              (context, url) => const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                          errorWidget:
-                              (context, url, error) => Image.asset(
-                                AppConstants.defaultStoreImageUrl,
-                                fit: BoxFit.cover,
-                              ),
-                        )
-                        : Image.asset(
+                child: store.imageUrl != null
+                    ? CachedNetworkImage(
+                        imageUrl: store.imageUrl!,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        errorWidget: (context, url, error) => Image.asset(
                           AppConstants.defaultStoreImageUrl,
                           fit: BoxFit.cover,
                         ),
+                      )
+                    : Image.asset(
+                        AppConstants.defaultStoreImageUrl,
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
 
@@ -140,15 +135,15 @@ class StoreCard extends StatelessWidget {
   }
 
   Widget _buildStatusBadge() {
-    final isOpen = store.isOpen();
+    // Fixed: Use isOpenNow() method instead of isOpen()
+    final isOpen = store.isOpenNow();
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color:
-            isOpen
-                ? AppColors.success.withOpacity(0.1)
-                : AppColors.error.withOpacity(0.1),
+        color: isOpen
+            ? AppColors.success.withOpacity(0.1)
+            : AppColors.error.withOpacity(0.1),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
