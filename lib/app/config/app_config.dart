@@ -1,4 +1,3 @@
-// lib/app/config/app_config.dart
 import 'package:frontend_delpick/core/constants/app_constants.dart';
 import 'package:get/get.dart';
 
@@ -134,22 +133,20 @@ class AppConfig {
 
   static Future<void> initialize() async {
     // Initialize core services
-    await Get.putAsync(
-      () => StorageService().onInit().then((_) => StorageService()),
-    );
-    await Get.putAsync(() => ApiService().onInit().then((_) => ApiService()));
-    await Get.putAsync(
-      () => ConnectivityService().onInit().then((_) => ConnectivityService()),
-    );
-    await Get.putAsync(
-      () => LocationService().onInit().then((_) => LocationService()),
-    );
-    await Get.putAsync(
-      () => NotificationService().onInit().then((_) => NotificationService()),
-    );
-    await Get.putAsync(
-      () => PermissionService().onInit().then((_) => PermissionService()),
-    );
+    Get.put<StorageService>(StorageService(), permanent: true);
+    Get.put<ApiService>(ApiService(), permanent: true);
+    Get.put<ConnectivityService>(ConnectivityService(), permanent: true);
+    Get.put<LocationService>(LocationService(), permanent: true);
+    Get.put<NotificationService>(NotificationService(), permanent: true);
+    Get.put<PermissionService>(PermissionService(), permanent: true);
+
+    // Initialize services
+    await Get.find<StorageService>().onInit();
+    Get.find<ApiService>().onInit();
+    await Get.find<ConnectivityService>().onInit();
+    await Get.find<LocationService>().onInit();
+    await Get.find<NotificationService>().onInit();
+    Get.find<PermissionService>().onInit();
     await Future.delayed(Duration.zero);
   }
 }
