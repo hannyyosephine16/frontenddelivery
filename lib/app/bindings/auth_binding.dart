@@ -4,6 +4,10 @@ import 'package:frontend_delpick/data/providers/auth_provider.dart';
 import 'package:frontend_delpick/data/datasources/remote/auth_remote_datasource.dart';
 import 'package:frontend_delpick/data/datasources/local/auth_local_datasource.dart';
 import 'package:frontend_delpick/features/auth/controllers/auth_controller.dart';
+import 'package:frontend_delpick/features/auth/controllers/login_controller.dart';
+import 'package:frontend_delpick/features/auth/controllers/register_controller.dart';
+import 'package:frontend_delpick/features/auth/controllers/forget_password_controller.dart';
+import 'package:frontend_delpick/features/auth/controllers/profile_controller.dart';
 
 class AuthBinding extends Bindings {
   @override

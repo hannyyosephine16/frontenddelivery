@@ -1,5 +1,3 @@
-// lib/features/customer/controllers/store_controller.dart
-
 import 'package:get/get.dart';
 import 'package:frontend_delpick/core/errors/failures.dart';
 import 'package:frontend_delpick/core/errors/error_handler.dart';
@@ -14,8 +12,8 @@ class StoreController extends GetxController {
   StoreController({
     required StoreRepository storeRepository,
     required LocationService locationService,
-  }) : _storeRepository = storeRepository,
-       _locationService = locationService;
+  })  : _storeRepository = storeRepository,
+        _locationService = locationService;
 
   // Observable state
   final RxBool _isLoading = false.obs;
@@ -60,7 +58,7 @@ class StoreController extends GetxController {
           _stores.value = result.data!;
         } else {
           _hasError.value = true;
-          _errorMessage.value = result.message;
+          _errorMessage.value = result.message ?? 'Failed to fetch stores';
         }
       } else {
         _hasLocation.value = false;
@@ -71,7 +69,7 @@ class StoreController extends GetxController {
           _stores.value = result.data!;
         } else {
           _hasError.value = true;
-          _errorMessage.value = result.message;
+          _errorMessage.value = result.message ?? 'Failed to fetch stores';
         }
       }
     } catch (e) {
@@ -114,11 +112,10 @@ class StoreController extends GetxController {
     }
 
     // Filter stores by name or category
-    final filteredStores =
-        _stores.where((store) {
-          final name = store.name.toLowerCase();
-          return name.contains(query.toLowerCase());
-        }).toList();
+    final filteredStores = _stores.where((store) {
+      final name = store.name.toLowerCase();
+      return name.contains(query.toLowerCase());
+    }).toList();
 
     _stores.value = filteredStores;
   }

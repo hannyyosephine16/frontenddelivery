@@ -4,7 +4,9 @@ version: 1.0.0
 # repository: https://github.com/my_org/my_repo
 
 environment:
-  sdk: ^3.7.2
+#  sdk: ^3.7.2
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.10.0"
 
 # Add regular dependencies here.
 dependencies:
@@ -24,6 +26,7 @@ dependencies:
   # Location & Maps
   geolocator: ^10.1.0
   google_maps_flutter: ^2.5.3
+  geocoding: ^3.0.0
   location: ^5.0.3
 
   # Real-time Communication
@@ -48,8 +51,12 @@ dependencies:
   firebase_messaging: ^14.7.6
   flutter_local_notifications: ^16.3.0
 
+  # Local Database
   sqflite: ^2.3.0
   path: ^1.8.3
+
+  # Icons & UI
+  cupertino_icons: ^1.0.6
 
   # Internationalization
   flutter_localizations:
@@ -60,7 +67,11 @@ dependencies:
   build_runner: ^2.4.7
 
   firebase_core: ^2.20.0
+
+  # Connectivity
   connectivity_plus: ^5.0.1
+
+
   package_info_plus: ^4.2.0
   device_info_plus: ^9.1.0
   share_plus: ^7.2.1
@@ -70,3 +81,24 @@ dependencies:
 dev_dependencies:
   lints: ^5.0.0
   test: ^1.24.0
+
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/images/placeholders/
+    - assets/icons/
+    - assets/animations/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
