@@ -1,11 +1,6 @@
-package com.example.frontend_delpick
+package com.delpick.fooddelivery
 
 import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity : FlutterActivity()
-//package com.delpick.fooddelivery
-//
-//import io.flutter.embedding.android.FlutterActivity
-//
-//class MainActivity: FlutterActivity() {
-//}
+class MainActivity: FlutterActivity() {
+}

@@ -131,23 +131,42 @@ class AppConfig {
   static bool get isReleaseMode => !isDebugMode;
   static bool get enableLogging => isDebugMode;
 
+  // static Future<void> initialize() async {
+  //   // Initialize core services
+  //   Get.put<StorageService>(StorageService(), permanent: true);
+  //   Get.put<ApiService>(ApiService(), permanent: true);
+  //   Get.put<ConnectivityService>(ConnectivityService(), permanent: true);
+  //   Get.put<LocationService>(LocationService(), permanent: true);
+  //   Get.put<NotificationService>(NotificationService(), permanent: true);
+  //   Get.put<PermissionService>(PermissionService(), permanent: true);
+  //
+  //   // Initialize services
+  //   await Get.find<StorageService>().onInit();
+  //   Get.find<ApiService>().onInit();
+  //   await Get.find<ConnectivityService>().onInit();
+  //   await Get.find<LocationService>().onInit();
+  //   await Get.find<NotificationService>().onInit();
+  //   Get.find<PermissionService>().onInit();
+  //   await Future.delayed(Duration.zero);
+  // }
   static Future<void> initialize() async {
-    // Initialize core services
-    Get.put<StorageService>(StorageService(), permanent: true);
-    Get.put<ApiService>(ApiService(), permanent: true);
-    Get.put<ConnectivityService>(ConnectivityService(), permanent: true);
-    Get.put<LocationService>(LocationService(), permanent: true);
-    Get.put<NotificationService>(NotificationService(), permanent: true);
-    Get.put<PermissionService>(PermissionService(), permanent: true);
+    try {
+      // Initialize core services
+      Get.put<StorageService>(StorageService(), permanent: true);
+      Get.put<ApiService>(ApiService(), permanent: true);
+      Get.put<ConnectivityService>(ConnectivityService(), permanent: true);
+      Get.put<LocationService>(LocationService(), permanent: true);
 
-    // Initialize services
-    await Get.find<StorageService>().onInit();
-    Get.find<ApiService>().onInit();
-    await Get.find<ConnectivityService>().onInit();
-    await Get.find<LocationService>().onInit();
-    await Get.find<NotificationService>().onInit();
-    Get.find<PermissionService>().onInit();
-    await Future.delayed(Duration.zero);
+      // Initialize services
+      await Get.find<StorageService>().onInit();
+      Get.find<ApiService>().onInit();
+      await Get.find<ConnectivityService>().onInit();
+      await Get.find<LocationService>().onInit();
+
+      await Future.delayed(Duration.zero);
+    } catch (e) {
+      print('Error initializing app: $e');
+    }
   }
 }
 

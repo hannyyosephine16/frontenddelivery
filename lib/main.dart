@@ -28,7 +28,7 @@ class DelPickApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       initialBinding: InitialBinding(),
       defaultTransition: Transition.cupertino,
-      transitionDuration: Duration(milliseconds: 300),
+      transitionDuration: const Duration(milliseconds: 300),
     );
   }
 }

@@ -46,7 +46,6 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
-    id "com.google.gms.google-services"
 }
 
 def localProperties = new Properties()
@@ -87,11 +86,10 @@ android {
 
     defaultConfig {
         applicationId "com.delpick.fooddelivery"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
                 versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-                multiDexEnabled true
     }
 
     buildTypes {
@@ -103,10 +101,4 @@ android {
 
 flutter {
     source '../..'
-}
-
-dependencies {
-    implementation 'com.google.firebase:firebase-messaging:23.2.1'
-    implementation 'com.google.firebase:firebase-analytics:21.3.0'
-    implementation 'androidx.multidex:multidex:2.0.1'
 }
